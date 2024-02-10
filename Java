@@ -1,0 +1,60 @@
+class Empleados {
+    private String nombre;
+    private double salarioBase;
+
+    public Empleados(String nombre, double salarioBase) {
+        this.nombre = nombre;
+        this.salarioBase = salarioBase;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void calcularSalario() {
+        System.out.println("Salario base: " + salarioBase);
+    }
+}
+
+class EmpleadoPorHora extends Empleados {
+    private int horasTrabajadas;
+    private double tarifaPorHora;
+
+    public EmpleadoPorHora(String nombre, double tarifaPorHora, int horasTrabajadas) {
+        super(nombre, 0);
+        this.tarifaPorHora = tarifaPorHora;
+        this.horasTrabajadas = horasTrabajadas;
+    }
+
+    @Override
+    public void calcularSalario() {
+        double salario = tarifaPorHora * horasTrabajadas;
+        System.out.println("Salario de " + getNombre() + " por horas trabajadas: " + salario);
+    }
+}
+
+class EmpleadoFijo extends Empleados {
+    public EmpleadoFijo(String nombre, double salarioBase) {
+        super(nombre, salarioBase); 
+
+    @Override
+    public void calcularSalario() {
+        super.calcularSalario();
+    }
+}
+
+public class MainApp {
+    public static void main(String[] args) {
+        Empleados empleado1 = new Empleados("Juan", 2000);
+        EmpleadoPorHora empleado2 = new EmpleadoPorHora("Maria", 15, 40);
+        EmpleadoFijo empleado3 = new EmpleadoFijo("Carlos", 3000);
+
+        Empleados[] empleados = {empleado1, empleado2, empleado3};
+
+        for (Empleados empleado : empleados) {
+            System.out.println("Nombre: " + empleado.getNombre());
+            empleado.calcularSalario();
+            System.out.println("-----------");
+        }
+    }
+}
